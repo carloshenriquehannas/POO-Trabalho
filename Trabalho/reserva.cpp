@@ -30,19 +30,19 @@ class Reserva
         {
             return _idReserva;
         }
-        int getQuantidadePessoas() const 
+        int getQuantidadePessoas() const        // Retorna a quantidade de pessoas da reserva
         {
             return _quantidadePessoas;
         }
-        bool getStatus() const 
+        bool getStatus() const                  // Retorna se a reserva esta ativa ou nao
         {
             return _status;
         }
-        std::string getNomeCliente() const 
+        std::string getNomeCliente() const      // Retorna o nome do cliente que fez a reserva 
         {
             return _nomeCliente;
         }
-        std::tm getDataHora() const 
+        std::tm getDataHora() const             // Retorna a data e horario da reserva
         {
             return _dataHora;
         }
