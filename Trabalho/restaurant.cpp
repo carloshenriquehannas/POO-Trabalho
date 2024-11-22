@@ -18,6 +18,7 @@
 #include "mesa.cpp"
 #include "reserva.cpp"
 
+// Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
 {
     std::cout << "Data e Hora da Reserva: "  << std::put_time(&dataHora, "%d/%m/%Y %H:%M") << std::endl;
@@ -60,16 +61,14 @@ int main()
 
     // Define uma data e hora de exemplo para reserva
     std::tm dataHora = {};
-    dataHora.tm_mday = 10;        // Dia 10
-    dataHora.tm_mon = 11 - 1;     // Novembro (meses começam do 0)
-    dataHora.tm_year = 2024 - 1900; // Ano (desde 1900)
-    dataHora.tm_hour = 18;        // 18 horas
-    dataHora.tm_min = 30;         // 30 minutos
+    dataHora.tm_mday = 10;        
+    dataHora.tm_mon = 11 - 1;    
+    dataHora.tm_year = 2024 - 1900; 
+    dataHora.tm_hour = 18;        
+    dataHora.tm_min = 30;         
 
-    // Cria uma reserva
+    // Instancia o objeto reserva1 e exibe detalhes da reserva
     Reserva reserva1(1, 4, true, "Carlos", dataHora);
-
-    // Exibe detalhes da reserva
     std::cout << "***** RESERVA 1 *****" << std::endl;
     std::cout << "ID da Reserva: " << reserva1.getIdReserva() << std::endl;
     std::cout << "Nome do Cliente: " << reserva1.getNomeCliente() << std::endl;

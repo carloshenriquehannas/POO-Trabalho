@@ -19,14 +19,14 @@ class Reserva
     private:
         int _idReserva;
         int _quantidadePessoas;
-        bool _status;
+        bool _status;                           // True se reserva ativa; false se reserva inativa
         std::string _nomeCliente;
         std::tm _dataHora;
     public:
         // Construtor
         Reserva(int idReserva, int quantidadePessoas, bool status, const std::string& nomeCliente, const std::tm& dataHora): _idReserva(idReserva), _quantidadePessoas(quantidadePessoas), _status(status), _nomeCliente(nomeCliente), _dataHora(dataHora) {}
 
-        int getIdReserva() const 
+        int getIdReserva() const                // Retorna o ID da reserva
         {
             return _idReserva;
         }
