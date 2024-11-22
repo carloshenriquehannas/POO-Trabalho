@@ -20,7 +20,7 @@ class Mesa
         // Construtor da classe
         Mesa(bool status, int quantidadeCadeiras, int _numeroMesa): _status(status), _quantidadeCadeiras(quantidadeCadeiras), _numeroMesa(_numeroMesa) {}
 
-        bool getStatus() const                  // Retorna o status da mesa 
+        bool getStatus() const                  // Retorna se a mesa esta disponivel ou nao
         {
             return _status;
         }
