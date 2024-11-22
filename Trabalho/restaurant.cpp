@@ -45,7 +45,7 @@ int main()
     //Instancia o objeto mesa1 e exibe informacoes
     Mesa mesa1(true, 4, 1);
     std::cout << "****** MESA 1 *******" << std::endl;
-    std::cout << "Status: " << mesa1.getStatus() << std::endl;
+    std::cout << "Status: " << (mesa1.getStatus() ? "Disponivel" : "Indisponivel") << std::endl;
     std::cout << "Quantidade de Cadeiras: " << mesa1.getQuantidadeCadeiras() << std::endl;
     std::cout << "Numero da mesa: " << mesa1.getNumeroMesa() << std::endl;
     std::cout << "*********************" << std::endl;
@@ -53,7 +53,7 @@ int main()
     //Instancia o objeto mesa2 e exibe informacoes
     Mesa mesa2(false, 6, 2);
     std::cout << "****** MESA 2 *******" << std::endl;
-    std::cout << "Status: " << mesa2.getStatus() << std::endl;
+    std::cout << "Status: " << (mesa2.getStatus() ? "Disponivel" : "Indisponivel") << std::endl;
     std::cout << "Quantidade de Cadeiras: " << mesa2.getQuantidadeCadeiras() << std::endl;
     std::cout << "Numero da mesa: " << mesa2.getNumeroMesa() << std::endl;
     std::cout << "*********************" << std::endl;
