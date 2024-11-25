@@ -10,6 +10,7 @@ Simulação de um sistema de restaurantes.
 5. cardapio.cpp: implementacao da classe cardapio
 
 Nesta prática, os comandos para compilar e executar o código são:
+
     Compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp -o simulation
     Executar: ./simulation
 
