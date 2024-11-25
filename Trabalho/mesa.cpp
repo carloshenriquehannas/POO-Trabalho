@@ -16,6 +16,7 @@ class Mesa
         bool _status;                           // True se mesa disponivel; false se mesa indisponivel
         int _quantidadeCadeiras;
         int _numeroMesa;
+        
     public:
         // Construtor da classe
         Mesa(bool status, int quantidadeCadeiras, int _numeroMesa): _status(status), _quantidadeCadeiras(quantidadeCadeiras), _numeroMesa(_numeroMesa) {}
@@ -24,10 +25,12 @@ class Mesa
         {
             return _status;
         }
+
         int getQuantidadeCadeiras() const       // Retorna a quantidade de cadeiras da mesa
         {
             return _quantidadeCadeiras;
         }
+
         int getNumeroMesa() const               // Retorna o numero da mesa
         {
             return _numeroMesa;

@@ -18,6 +18,7 @@ class Cliente
         std::string _nome;
         std::string _contato;
         std::string _endereco;
+        
     public:
         // Construtor da classe
         Cliente(std::string nome, std::string contato, std::string endereco): _nome(nome), _contato(contato), _endereco(endereco) {}
@@ -26,10 +27,12 @@ class Cliente
         {
             return _nome;
         }
+
         std::string getContato() const      // Retorna o contato do cliente
         {
             return _contato;
         }
+
         std::string getEndereco() const     // Retorna o endereco do cliente
         {
             return _endereco;
