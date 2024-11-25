@@ -7,7 +7,7 @@
         Henrique Carobolante Parro          NUSP: 11917987
         Lucca Tommaso Monzani               NUSP: 5342324
 
-    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp -o simulation
+    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp -o simulation
     Para executar: ./simulation
 
     Arquivo principal da simulacao
@@ -17,6 +17,7 @@
 #include "cliente.cpp"
 #include "mesa.cpp"
 #include "reserva.cpp"
+#include "cardapio.cpp"
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
@@ -75,6 +76,15 @@ int main()
     std::cout << "Quantidade de Pessoas: " << reserva1.getQuantidadePessoas() << std::endl;
     std::cout << "Status: " << (reserva1.getStatus() ? "Ativa" : "Inativa") << std::endl;
     displayDataHora(dataHora);
+    std::cout << "*********************" << std::endl;
+
+    // Instancia o objeto de cardapio, adiciona e exibe itens/precos
+    Cardapio cardapio;
+    std::cout << "*********************" << std::endl;
+    cardapio.adicionaItem("Pizza Margherita", "R$25,00");
+    cardapio.adicionaItem("Hamburguer", "R$18,00");
+    cardapio.adicionaItem("Suco de Laranja", "R$8,00");
+    cardapio.exibirCardapio();
     std::cout << "*********************" << std::endl;
 
     return 0;
