@@ -7,7 +7,7 @@
         Henrique Carobolante Parro          NUSP: 11917987
         Lucca Tommaso Monzani               NUSP: 5342324
 
-    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp -o simulation
+    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionario.cpp -o simulation
     Para executar: ./simulation
 
     Arquivo principal da simulacao
@@ -18,6 +18,7 @@
 #include "mesa.cpp"
 #include "reserva.cpp"
 #include "cardapio.cpp"
+#include "funcionario.cpp"
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
@@ -85,6 +86,35 @@ int main()
     cardapio.adicionaItem("Hamburguer", "R$18,00");
     cardapio.adicionaItem("Suco de Laranja", "R$8,00");
     cardapio.exibirCardapio();
+    std::cout << "*********************" << std::endl;
+
+    // Instancia objetos de funcionarios e exibe as tarefas
+    Recepcionista recepcionista("Ana", 101, 3);
+    std::cout << "*** RECEPCIONISTA ***" << std::endl;
+    std::cout << "Nome: " << recepcionista.getNome() << std::endl;
+    std::cout << "Matricula: " << recepcionista.getMatricula() << std::endl;
+    recepcionista.realizarTarefa();
+    std::cout << "*********************" << std::endl;
+
+    Garcom garcom("Paulo", 102, "Rota A");
+    std::cout << "****** GARÇOM *******" << std::endl;
+    std::cout << "Nome: " << garcom.getNome() << std::endl;
+    std::cout << "Matricula: " << garcom.getMatricula() << std::endl;
+    garcom.realizarTarefa();
+    std::cout << "*********************" << std::endl;
+
+    ChefCozinha chefe("Beatriz", 103, "Cozinha Italiana");
+    std::cout << "** CHEF DE COZINHA **" << std::endl;
+    std::cout << "Nome: " << chefe.getNome() << std::endl;
+    std::cout << "Matricula: " << chefe.getMatricula() << std::endl;
+    chefe.realizarTarefa();
+    std::cout << "*********************" << std::endl;
+
+    Caixa caixa("Lucas", 104, 5);
+    std::cout << "******* CAIXA *******" << std::endl;
+    std::cout << "Nome: " << caixa.getNome() << std::endl;
+    std::cout << "Matricula: " << caixa.getMatricula() << std::endl;
+    caixa.realizarTarefa();
     std::cout << "*********************" << std::endl;
 
     return 0;
