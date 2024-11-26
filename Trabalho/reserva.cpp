@@ -8,6 +8,7 @@
         Lucca Tommaso Monzani               NUSP: 5342324
 
     Arquivo com os atributos privados e metodos publicos da classe de reserva
+    Link de estudo sobre funcao std::tm: https://en.cppreference.com/w/cpp/chrono/c/tm
 */
 
 #include <string>
