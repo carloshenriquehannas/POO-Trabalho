@@ -8,10 +8,12 @@ Simulação de um sistema de restaurantes.
 3. mesa.cpp: implementacao da classe mesa
 4. reserva.cpp: implementacao da classe reserva
 5. cardapio.cpp: implementacao da classe cardapio
+6. funcionario.cpp: implementacao da classe abstrata funcionario e classes herdadas
+
 
 Nesta prática, os comandos para compilar e executar o código são:
 
-    Compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp -o simulation
+    Compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionarios.cpp -o simulation
     Executar: ./simulation
 
 As informações de projeto e código, como a documentação, encontram-se no arquivo SCC0604-Trabalho01.pdf. Além disso utilizou-se, nesta prática:
