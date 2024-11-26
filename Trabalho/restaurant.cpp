@@ -7,7 +7,7 @@
         Henrique Carobolante Parro          NUSP: 11917987
         Lucca Tommaso Monzani               NUSP: 5342324
 
-    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionario.cpp -o simulation
+    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionario.cpp pedido.cpp -o simulation
     Para executar: ./simulation
 
     Arquivo principal da simulacao
@@ -19,6 +19,7 @@
 #include "reserva.cpp"
 #include "cardapio.cpp"
 #include "funcionario.cpp"
+#include "pedido.cpp"
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
@@ -70,7 +71,7 @@ int main()
     dataHora.tm_min = 30;         
 
     // Instancia o objeto reserva1 e exibe detalhes da reserva
-    Reserva reserva1(1, 4, true, "Carlos", dataHora);
+    Reserva reserva1(1, 4, true, "Joao", dataHora);
     std::cout << "***** RESERVA 1 *****" << std::endl;
     std::cout << "ID da Reserva: " << reserva1.getIdReserva() << std::endl;
     std::cout << "Nome do Cliente: " << reserva1.getNomeCliente() << std::endl;
@@ -115,6 +116,13 @@ int main()
     std::cout << "Nome: " << caixa.getNome() << std::endl;
     std::cout << "Matricula: " << caixa.getMatricula() << std::endl;
     caixa.realizarTarefa();
+    std::cout << "*********************" << std::endl;
+
+    std::cout << "*********************" << std::endl;
+    Pedido pedido1("Joao", 1);
+    pedido1.adicionaItem("Pizza Margherita", 2);
+    pedido1.adicionaItem("Suco de Laranja", 3);
+    pedido1.exibirPedido();
     std::cout << "*********************" << std::endl;
 
     return 0;
