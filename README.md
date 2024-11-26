@@ -9,7 +9,7 @@ Simulação de um sistema de restaurantes.
 4. reserva.cpp: implementacao da classe reserva
 5. cardapio.cpp: implementacao da classe cardapio
 6. funcionario.cpp: implementacao da classe abstrata funcionario e classes herdadas
-
+7. pedido.cpp: implementacao da classe pedido
 
 Nesta prática, os comandos para compilar e executar o código são:
 
