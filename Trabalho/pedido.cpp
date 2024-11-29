@@ -42,4 +42,11 @@ class Pedido
             }
         }
 
+        std::vector<std::pair<std::string, int>> getPedido(){
+            return _itens;
+        }
+
+        void finalizaPedido(){
+            _itens.clear();
+        }
 };

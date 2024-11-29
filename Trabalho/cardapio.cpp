@@ -36,4 +36,8 @@ class Cardapio {
                 std::cout << "Item: " << par.first << ". Preço: " << par.second << std::endl;
             }
         }
+
+        std::vector<std::pair<std::string, std::string>> getCardapio(){
+            return _itens;
+        }
 };

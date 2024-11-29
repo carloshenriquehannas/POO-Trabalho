@@ -7,7 +7,7 @@
         Henrique Carobolante Parro          NUSP: 11917987
         Lucca Tommaso Monzani               NUSP: 5342324
 
-    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionario.cpp pedido.cpp -o simulation
+    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionario.cpp pedido.cpp pagamento.cpp -o simulation
     Para executar: ./simulation
 
     Arquivo principal da simulacao
@@ -17,9 +17,8 @@
 #include "cliente.cpp"
 #include "mesa.cpp"
 #include "reserva.cpp"
-#include "cardapio.cpp"
 #include "funcionario.cpp"
-#include "pedido.cpp"
+#include "pagamento.cpp"
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
@@ -125,5 +124,68 @@ int main()
     pedido1.exibirPedido();
     std::cout << "*********************" << std::endl;
 
+    std::cout << "*********************" << std::endl;
+    int formaPagamento, realizado = 0; // valor para escolha da forma de pagaento e flag para indicar que o pagamento foi realizado 
+    while(realizado == 0){
+        std::cout << "Digite 1 para pagar com dinheiro. \nDigite 2 para pagar via Pix. \ndigite 3 para pagar com Cartão."<<std::endl;
+        std::cin>>formaPagamento;
+        switch (formaPagamento)
+        {
+        case 1: {
+            Dinheiro pagamento1(&pedido1, cardapio);
+            pagamento1.pagarDinheiro();
+            if(pagamento1.getConfirmacao() == 1){
+                pagamento1.getPedido()->finalizaPedido();
+                std::cout<<"Pagamento realizado com sucesso!"<<std::endl;
+                realizado = 1;
+            }
+            if(pagamento1.getConfirmacao() == 2){
+                std::cout<<"Pagamento cancelado!"<<std::endl;
+                realizado = 1;
+            }
+            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2){
+                std::cout<<"Valor invalido inserido, processo de pagamento reiniciado"<<std::endl;
+            }
+            break;
+        }
+        case 2: {
+            Pix pagamento1(&pedido1, cardapio);
+            pagamento1.pagarPix();
+            if(pagamento1.getConfirmacao() == 1){
+                pagamento1.getPedido()->finalizaPedido();
+                std::cout<<"Pagamento realizado com sucesso!"<<std::endl;
+                realizado = 1;
+            }
+            if(pagamento1.getConfirmacao() == 2){
+                std::cout<<"Pagamento cancelado!"<<std::endl;
+                realizado = 1;
+            }
+            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2){
+                std::cout<<"Valor invalido inserido, processo de pagamento reiniciado"<<std::endl;
+            }
+            break;
+        }
+        case 3: {
+            Cartao pagamento1(&pedido1, cardapio);
+            pagamento1.pagarCartao();
+            if(pagamento1.getConfirmacao() == 1){
+                pagamento1.getPedido()->finalizaPedido();
+                std::cout<<"Pagamento realizado com sucesso!"<<std::endl;
+                realizado = 1;
+            }
+            if(pagamento1.getConfirmacao() == 2){
+                std::cout<<"Pagamento cancelado!"<<std::endl;
+                realizado = 1;
+            }
+            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2){
+                std::cout<<"Valor invalido inserido, processo de pagamento reiniciado"<<std::endl;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    std::cout << "*********************" << std::endl;
     return 0;
 }
