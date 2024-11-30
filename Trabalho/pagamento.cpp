@@ -26,28 +26,24 @@ private:
 public:
     Pagamento(Pedido *p_in, Cardapio c_in, float total = 0, int erro = 0) : total(total), erro(erro), p(p_in), c(c_in){}
     ~Pagamento() = default;
-    void calcTotal(){
+    void calcTotal() {
         std::vector<std::pair<std::string, int>> aux_pedido = p->getPedido();
-        std::vector<std::pair<std::string, std::string>> aux_cardapio = c.getCardapio();
-        int encontrado = 0;
+        std::vector<std::pair<std::string, double>> aux_cardapio = c.getCardapio();
+        
+        for (const auto& par_pedido : aux_pedido) {
+            bool encontrado = false;
 
-        for (const auto& par_pedido : aux_pedido){
-            for (const auto& par_cardapio : aux_cardapio){
-                if (par_pedido.first == par_cardapio.first){
-                    encontrado = 1;
-                    std::string preco = par_cardapio.second;
-                    size_t pos = preco.find("R$");
-                    if (pos != std::string::npos) {
-                        preco.erase(pos, 2);
-                    }
-                    pos = preco.find(",");
-                    preco.replace(pos, 1, ".");
-                    total = total + par_pedido.second * std::stof(preco);
+            for (const auto& par_cardapio : aux_cardapio) {
+                if (par_pedido.first == par_cardapio.first) {
+                    encontrado = true;
+                    total += par_pedido.second * par_cardapio.second;
+                    break;
                 }
-                if(encontrado != 1){
-                    std::cout<<"O item "<<par_pedido.first<<" não foi encontrado no cardapio."<<std::endl;
-                    erro = 1; // flag de erro se o item não é encontrado no cardápio.
-                }
+            }
+
+            if (!encontrado) {
+                std::cout << "O item " << par_pedido.first << " nao foi encontrado no cardapio." << std::endl;
+                erro = 1; // Flag de erro.
             }
         }
     }
@@ -84,9 +80,9 @@ public:
         float dinheiro = 0, troco, realizado = 0;
         calcTotal();
         std::cout<<"Pagamento em dinheiro selecionado."<<std::endl;
-        std::cout<<"Total a ser pago: "<<getTotal()<<std::endl;
+        std::cout<<"Total a ser pago: R$ "<<getTotal()<<std::endl;
         while(dinheiro < getTotal()){
-            std::cout<<"Insira a quantia paga pelo cliente: ";
+            std::cout<<"Insira a quantia paga pelo cliente: R$ ";
             std::cin>>dinheiro;
             if(dinheiro < getTotal()){
                 std::cout<<"Valor insuficiente!"<<std::endl;
@@ -119,7 +115,7 @@ public:
         int realizado = 0;    
         calcTotal();
         std::cout<<"Pagamento via Pix selecionado."<<std::endl;
-        std::cout<<"Total a ser pago: "<<getTotal()<<std::endl<<"Forneça a chave pix ao cliente."<<std::endl;
+        std::cout<<"Total a ser pago: R$ "<<getTotal()<<std::endl<<"Forneça a chave pix ao cliente."<<std::endl;
         while(realizado == 0){
             std::cout<<"Digite 1 para confirmar pagamento."<<std::endl<<"Digite 2 para cancelar proceso de pagamento."<<std::endl;
             std::cin>>confirmacao;
@@ -149,7 +145,7 @@ public:
         calcTotal();
         int realizado = 0;
         std::cout<<"Pagamento via cartão selecionado."<<std::endl;
-        std::cout<<"Total a ser pago: "<<getTotal()<<std::endl;
+        std::cout<<"Total a ser pago: R$ "<<getTotal()<<std::endl;
         while(realizado == 0){
             std::cout<<"Digite 1 para credito ou 2 para debito:";
             std::cin>>tipoPagamento;
