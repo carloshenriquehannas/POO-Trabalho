@@ -18,13 +18,13 @@
 
 class Cardapio {
     private:
-        std::vector<std::pair<std::string, std::string>> _itens;                // Armazena par de string no vetor: item e preco
+        std::vector<std::pair<std::string, double>> _itens;                     // Armazena par de string no vetor: item e preco
 
     public:
         // Construtor da classe
         Cardapio() {}
 
-        void adicionaItem(const std::string& item, const std::string& preco)   // Adiciona um item e seu preco
+        void adicionaItem(const std::string& item, double preco)                // Adiciona um item e seu preco
         {
             _itens.push_back(std::make_pair(item, preco));
         }
@@ -33,11 +33,11 @@ class Cardapio {
         {
             std::cout << "Cardápio:\n";
             for (const auto& par : _itens) {
-                std::cout << "Item: " << par.first << ". Preço: " << par.second << std::endl;
+                std::cout << "Item: " << par.first << ". Preço: R$ " << par.second << std::endl;
             }
         }
 
-        std::vector<std::pair<std::string, std::string>> getCardapio(){
+        std::vector<std::pair<std::string, double>> getCardapio(){
             return _itens;
         }
 };

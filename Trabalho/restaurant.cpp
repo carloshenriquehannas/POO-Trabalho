@@ -82,9 +82,9 @@ int main()
     // Instancia o objeto de cardapio, adiciona e exibe itens/precos
     Cardapio cardapio;
     std::cout << "*********************" << std::endl;
-    cardapio.adicionaItem("Pizza Margherita", "R$25,00");
-    cardapio.adicionaItem("Hamburguer", "R$18,00");
-    cardapio.adicionaItem("Suco de Laranja", "R$8,00");
+    cardapio.adicionaItem("Pizza Margherita", 25.0);
+    cardapio.adicionaItem("Hamburguer", 18.0);
+    cardapio.adicionaItem("Suco de Laranja", 8.0);
     cardapio.exibirCardapio();
     std::cout << "*********************" << std::endl;
 
