@@ -45,6 +45,8 @@ int main()
     std::cout << "Endereco: " << cliente2.getEndereco() << std::endl;
     std::cout << "*********************" << std::endl;
 
+    std::cout << "\n" << std::endl;
+
     //Instancia o objeto mesa1 e exibe informacoes
     Mesa mesa1(true, 4, 1);
     std::cout << "****** MESA 1 *******" << std::endl;
@@ -60,6 +62,8 @@ int main()
     std::cout << "Quantidade de Cadeiras: " << mesa2.getQuantidadeCadeiras() << std::endl;
     std::cout << "Numero da mesa: " << mesa2.getNumeroMesa() << std::endl;
     std::cout << "*********************" << std::endl;
+
+    std::cout << "\n" << std::endl;
 
     // Define uma data e hora de exemplo para reserva
     std::tm dataHora = {};
@@ -79,6 +83,8 @@ int main()
     displayDataHora(dataHora);
     std::cout << "*********************" << std::endl;
 
+    std::cout << "\n" << std::endl;
+
     // Instancia o objeto de cardapio, adiciona e exibe itens/precos
     Cardapio cardapio;
     std::cout << "*********************" << std::endl;
@@ -87,6 +93,8 @@ int main()
     cardapio.adicionaItem("Suco de Laranja", 8.0);
     cardapio.exibirCardapio();
     std::cout << "*********************" << std::endl;
+
+    std::cout << "\n" << std::endl;
 
     // Instancia objetos de funcionarios e exibe as tarefas
     Recepcionista recepcionista("Ana", 101, 3);
@@ -117,6 +125,10 @@ int main()
     caixa.realizarTarefa();
     std::cout << "*********************" << std::endl;
 
+    std::cout << "\n" << std::endl;
+
+
+    // Instancia objeto de um pedido e exibe as informacoes
     std::cout << "*********************" << std::endl;
     Pedido pedido1("Joao", 1);
     pedido1.adicionaItem("Pizza Margherita", 2);
@@ -124,6 +136,9 @@ int main()
     pedido1.exibirPedido();
     std::cout << "*********************" << std::endl;
 
+    std::cout << "\n" << std::endl;
+
+    // Instancia objetos para pagamento e interage com o usuario para processar o pagamento do objeto pedido1
     std::cout << "*********************" << std::endl;
     int formaPagamento, realizado = 0; // valor para escolha da forma de pagaento e flag para indicar que o pagamento foi realizado 
     while(realizado == 0){
