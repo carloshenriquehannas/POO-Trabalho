@@ -49,4 +49,8 @@ class Pedido
         void finalizaPedido(){
             _itens.clear();
         }
+
+        std::string getCliente(){
+            return _cliente;
+        }
 };

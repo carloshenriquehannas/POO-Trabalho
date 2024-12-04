@@ -14,17 +14,20 @@
 #include "pedido.cpp"
 #include "cardapio.cpp"
 #include <iomanip>
+#include <locale.h>
 
 class Pagamento
 {
 private:      
-    float total;
+    double valorTotal;
+    double valorDesconto;
+    double valorFinal;
     int erro;
     Pedido *p; // Objeto pedido o tipo ponteiro para poder ser finalizado ao efetuar o pagamento
     Cardapio c;
 
 public:
-    Pagamento(Pedido *p_in, Cardapio c_in, float total = 0, int erro = 0) : total(total), erro(erro), p(p_in), c(c_in){}
+    Pagamento(Pedido *p_in, Cardapio c_in, float total = 0, int erro = 0) : valorTotal(total), erro(erro), p(p_in), c(c_in){}
     ~Pagamento() = default;
     void calcTotal() {
         std::vector<std::pair<std::string, int>> aux_pedido = p->getPedido();
@@ -36,7 +39,7 @@ public:
             for (const auto& par_cardapio : aux_cardapio) {
                 if (par_pedido.first == par_cardapio.first) {
                     encontrado = true;
-                    total += par_pedido.second * par_cardapio.second;
+                    valorTotal += par_pedido.second * par_cardapio.second;
                     break;
                 }
             }
@@ -46,6 +49,24 @@ public:
                 erro = 1; // Flag de erro.
             }
         }
+    }
+
+    void setDesconto(){
+        std::cout<<"insira o desconto a ser aplicado: R$";
+        std::cin>>valorDesconto;
+        std::cout<<std::endl;
+    }
+
+    void semDesconto(){
+        valorFinal = valorTotal;
+    }
+
+    void setFinal(){
+        valorFinal = valorTotal - valorDesconto;
+    }
+
+    double getFinal(){
+        return valorFinal;
     }
 
     Pedido * getPedido(){
@@ -61,7 +82,7 @@ public:
     }
 
     float getTotal(){
-        return total;
+        return valorTotal;
     }
 
 };
@@ -70,6 +91,8 @@ class Dinheiro : public Pagamento
 {
 private:
     int confirmacao;    //flag utilizada para verificar se o pedido foi pago com sucesso ou se houve problema.
+    double valorRecebido;
+    double troco;
 public:
     // Construtor
     Dinheiro(Pedido *p_in, Cardapio c_in, float total = 0, int erro = 0, int conf = 0) : Pagamento(p_in, c_in, total, erro), confirmacao(conf){};
@@ -77,28 +100,53 @@ public:
     ~Dinheiro() = default;
 
     void pagarDinheiro(){       
-        float dinheiro = 0, troco, realizado = 0;
+        valorRecebido = 0;
+        int realizado = 0;
         calcTotal();
         std::cout<<"Pagamento em dinheiro selecionado."<<std::endl;
         std::cout<<"Total a ser pago: R$ "<<getTotal()<<std::endl;
-        while(dinheiro < getTotal()){
+        while(realizado == 0){
+            std::cout<<"Digite 1 para aplicar desconto."<<std::endl<<"Digite 2 para continuar sem desconto."<<std::endl;
+            std::cin>>confirmacao;
+            if (confirmacao == 1){
+                setDesconto();
+                setFinal();
+                std::cout<<"Valor final a ser pago: R$ "<<getFinal()<<std::endl;
+            }
+            if (confirmacao == 2){
+                semDesconto();
+                std::cout<<"Valor final a ser pago: R$ "<<getTotal()<<std::endl;
+            }
+            if(confirmacao == 1 || confirmacao == 2) realizado = 1;
+            else std::cout<<"Valor invalido!"<<std::endl;
+        }
+        while(valorRecebido < getFinal()){
             std::cout<<"Insira a quantia paga pelo cliente: R$ ";
-            std::cin>>dinheiro;
-            if(dinheiro < getTotal()){
+            std::cin>>valorRecebido;
+            if(valorRecebido < getFinal()){
                 std::cout<<"Valor insuficiente!"<<std::endl;
             }
         }
-        std::cout<<"Troco calculado: "<<dinheiro - getTotal()<<std::endl;
-        while(realizado == 0){
+        troco = valorRecebido - getFinal();
+        std::cout<<"Troco calculado: R$"<<troco<<std::endl;
+        while(realizado == 1){
             std::cout<<"Digite 1 para confirmar pagamento."<<std::endl<<"Digite 2 para cancelar proceso de pagamento."<<std::endl;
             std::cin>>confirmacao;
-            if(confirmacao == 1 || confirmacao == 2) realizado = 1;
+            if(confirmacao == 1 || confirmacao == 2) realizado = 2;
             else std::cout<<"Valor invalido!"<<std::endl;
         }
     }
 
     int getConfirmacao(){
         return confirmacao;
+    }
+
+    double getTroco(){
+        return troco;
+    }
+
+    double getValor(){
+        return valorRecebido;
     }
 };
 
@@ -106,6 +154,7 @@ class Pix : public Pagamento
 {
 private:
     int confirmacao;     //flag utilizada para retornar se o pedido foi pago com sucesso ou se houve problema.
+    std::string devedor, credor, chave;
 public:
     // Construtor
     Pix(Pedido *p_in, Cardapio c_in, float total = 0, int erro = 0) : Pagamento(p_in, c_in, total, erro){};
@@ -113,19 +162,45 @@ public:
     ~Pix() = default;
     void pagarPix(){   
         int realizado = 0;    
-        calcTotal();
         std::cout<<"Pagamento via Pix selecionado."<<std::endl;
-        std::cout<<"Total a ser pago: R$ "<<getTotal()<<std::endl<<"Forneça a chave pix ao cliente."<<std::endl;
+        calcTotal();
         while(realizado == 0){
+            std::cout<<"Digite 1 para aplicar desconto."<<std::endl<<"Digite 2 para continuar sem desconto."<<std::endl;
+            std::cin>>confirmacao;
+            if (confirmacao == 1){
+                setDesconto();
+                setFinal();
+                std::cout<<"Valor final a ser pago: R$ "<<getFinal()<<std::endl;
+            }
+            if (confirmacao == 2){
+                semDesconto();
+                std::cout<<"Valor final a ser pago: R$ "<<getFinal()<<std::endl;
+            }
+            if(confirmacao == 1 || confirmacao == 2) realizado = 1;
+            else std::cout<<"Valor invalido!"<<std::endl;
+        }
+        devedor = getPedido()->getCliente();
+        std::cout<<"Devedor: "<<devedor<<std::endl;
+        std::cout<<"Credor: "<<credor<<std::endl;
+        std::cout<<"Chave pix: "<<chave<<std::endl;
+        while(realizado == 1){
             std::cout<<"Digite 1 para confirmar pagamento."<<std::endl<<"Digite 2 para cancelar proceso de pagamento."<<std::endl;
             std::cin>>confirmacao;
-            if(confirmacao == 1 || confirmacao == 2) realizado = 1;
+            if(confirmacao == 1 || confirmacao == 2) realizado = 2;
             else std::cout<<"Valor invalido!"<<std::endl;
         }
     }
 
     int getConfirmacao(){
         return confirmacao;
+    }
+
+    void setCredor(std::string cred){
+        credor = cred;
+    }
+
+    void setChave(std::string ch){
+        chave = ch;
     }
 };
 
@@ -134,6 +209,7 @@ class Cartao : public Pagamento
 private:
     int confirmacao;    //flag utilizada para retornar se o pedido foi pago com sucesso ou se houve problema.
     int tipoPagamento;
+    std::string banco;
 public:
     // Construtor
     Cartao(Pedido *p_in, Cardapio c_in, float total = 0, int erro = 0) : Pagamento(p_in, c_in, total, erro){};
@@ -144,20 +220,39 @@ public:
     void pagarCartao(){        
         calcTotal();
         int realizado = 0;
-        std::cout<<"Pagamento via cartão selecionado."<<std::endl;
+        std::cout<<"Pagamento via cartao selecionado."<<std::endl;
         std::cout<<"Total a ser pago: R$ "<<getTotal()<<std::endl;
         while(realizado == 0){
-            std::cout<<"Digite 1 para credito ou 2 para debito:";
+            std::cout<<"Digite 1 para aplicar desconto."<<std::endl<<"Digite 2 para continuar sem desconto."<<std::endl;
+            std::cin>>confirmacao;
+            if (confirmacao == 1){
+                setDesconto();
+                setFinal();
+                std::cout<<"Valor final a ser pago: R$ "<<getFinal()<<std::endl;
+            }
+            if (confirmacao == 2){
+                semDesconto();
+                std::cout<<"Valor final a ser pago: R$ "<<getFinal()<<std::endl;
+            }
+            if(confirmacao == 1 || confirmacao == 2) realizado = 1;
+            else std::cout<<"Valor invalido!"<<std::endl;
+        }
+        while(realizado == 1){
+            std::cout<<"Digite o nome do banco: ";
+            std::getline(std::cin>>std::ws, banco);
+            std::cout<<"\nDigite 1 para credito ou 2 para debito:";
             std::cin>>tipoPagamento;
-            if(tipoPagamento == 1 || tipoPagamento == 2) realizado = 1;
+            if(tipoPagamento == 1 || tipoPagamento == 2) realizado = 2;
             else std::cout<< "Valor invalido!"<<std::endl;
         }
-        if(tipoPagamento == 1) std::cout<<"Credito selecionado."<<std::endl;
-        if(tipoPagamento == 2) std::cout<<"Debito selecionado."<<std::endl;
-        while(realizado == 1){
+        if(tipoPagamento == 1) std::cout<<"Credito selecionado."<<std::endl<<"Pagamento pelo banco: "<<banco<<std::endl;
+        if(tipoPagamento == 2) std::cout<<"Debito selecionado."<<std::endl<<"Pagamento pelo banco: "<<banco<<std::endl;
+        while(realizado == 2){
             std::cout<<"Digite 1 para confirmar pagamento."<<std::endl<<"Digite 2 para cancelar proceso de pagamento."<<std::endl;
             std::cin>>confirmacao;
-            if(confirmacao == 1 || confirmacao == 2) realizado = 2;
+            if(confirmacao == 1 || confirmacao == 2){
+                realizado = 3;
+            } 
             else std::cout<<"Valor invalido!"<<std::endl;
         }
     }

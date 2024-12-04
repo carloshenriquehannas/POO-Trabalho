@@ -19,6 +19,7 @@
 #include "reserva.cpp"
 #include "funcionario.cpp"
 #include "pagamento.cpp"
+#include <locale.h>
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
@@ -28,7 +29,7 @@ void displayDataHora(const std::tm& dataHora)
 
 int main()
 {
-
+    setlocale(LC_ALL,"Portuguese_Brazil");
     //Instancia o objeto cliente1 e exibe informacoes
     Cliente cliente1("Maria", "12345", "Rua 1");
     std::cout << "***** CLIENTE 1 *****" << std::endl;
@@ -165,6 +166,8 @@ int main()
         }
         case 2: {
             Pix pagamento1(&pedido1, cardapio);
+            pagamento1.setChave("restaurante@gmail.com");
+            pagamento1.setCredor("Restaurante");
             pagamento1.pagarPix();
             if(pagamento1.getConfirmacao() == 1){
                 pagamento1.getPedido()->finalizaPedido();
