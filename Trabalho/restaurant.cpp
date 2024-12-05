@@ -7,18 +7,23 @@
         Henrique Carobolante Parro          NUSP: 11917987
         Lucca Tommaso Monzani               NUSP: 5342324
 
-    Para compilar: g++ restaurant.cpp cliente.cpp mesa.cpp reserva.cpp cardapio.cpp funcionario.cpp pedido.cpp pagamento.cpp -o simulation
-    Para executar: ./simulation
+    Para compilar via terminal digite: make
+    Para executar via terminal digite: make run
+    Para limpar arquivos criados pelo Makefile via terminal digite: make clean
 
     Arquivo principal da simulacao
 */
 
+#include "header/cardapio.hpp"
+#include "header/cliente.hpp"
+#include "header/funcionario.hpp"
+#include "header/mesa.hpp"
+#include "header/pagamento.hpp"
+#include "header/pedido.hpp"
+#include "header/reserva.hpp"
+
 #include <iostream>
-#include "cliente.cpp"
-#include "mesa.cpp"
-#include "reserva.cpp"
-#include "funcionario.cpp"
-#include "pagamento.cpp"
+#include <iomanip>
 #include <locale.h>
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
@@ -30,6 +35,7 @@ void displayDataHora(const std::tm& dataHora)
 int main()
 {
     setlocale(LC_ALL,"Portuguese_Brazil");
+
     //Instancia o objeto cliente1 e exibe informacoes
     Cliente cliente1("Maria", "12345", "Rua 1");
     std::cout << "***** CLIENTE 1 *****" << std::endl;
@@ -46,7 +52,7 @@ int main()
     std::cout << "Endereco: " << cliente2.getEndereco() << std::endl;
     std::cout << "*********************" << std::endl;
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n";
 
     //Instancia o objeto mesa1 e exibe informacoes
     Mesa mesa1(true, 4, 1);
@@ -64,7 +70,7 @@ int main()
     std::cout << "Numero da mesa: " << mesa2.getNumeroMesa() << std::endl;
     std::cout << "*********************" << std::endl;
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n";
 
     // Define uma data e hora de exemplo para reserva
     std::tm dataHora = {};
@@ -84,7 +90,7 @@ int main()
     displayDataHora(dataHora);
     std::cout << "*********************" << std::endl;
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n";
 
     // Instancia o objeto de cardapio, adiciona e exibe itens/precos
     Cardapio cardapio;
@@ -95,7 +101,7 @@ int main()
     cardapio.exibirCardapio();
     std::cout << "*********************" << std::endl;
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n";
 
     // Instancia objetos de funcionarios e exibe as tarefas
     Recepcionista recepcionista("Ana", 101, 3);
@@ -126,7 +132,7 @@ int main()
     caixa.realizarTarefa();
     std::cout << "*********************" << std::endl;
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n";
 
 
     // Instancia objeto de um pedido e exibe as informacoes
@@ -137,11 +143,11 @@ int main()
     pedido1.exibirPedido();
     std::cout << "*********************" << std::endl;
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n";
 
     // Instancia objetos para pagamento e interage com o usuario para processar o pagamento do objeto pedido1
     std::cout << "*********************" << std::endl;
-    int formaPagamento, realizado = 0; // valor para escolha da forma de pagaento e flag para indicar que o pagamento foi realizado 
+    int formaPagamento, realizado = 0; // Valor para escolha da forma de pagaento e flag para indicar que o pagamento foi realizado 
     while(realizado == 0){
         std::cout << "Digite 1 para pagar com dinheiro. \nDigite 2 para pagar via Pix. \ndigite 3 para pagar com Cartão."<<std::endl;
         std::cin>>formaPagamento;
