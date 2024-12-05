@@ -10,13 +10,13 @@
     Arquivo header com a declaracao da classe de cliente
 */
 
-
 #ifndef CLIENTE_HPP
 #define CLIENTE_HPP
 
 #include <string>
 
-class Cliente {
+class Cliente 
+{
     private:
         std::string _nome;
         std::string _contato;

@@ -159,7 +159,7 @@ double Dinheiro::getValor() const
     return valorRecebido;
 }
 
-// IConstrutor da classe Pix
+// Construtor da classe Pix
 Pix::Pix(Pedido *p_in, Cardapio c_in, float total, int erro) : Pagamento(p_in, c_in, total, erro) {}
 
 void Pix::pagarPix()

@@ -17,7 +17,8 @@
 #include <vector>
 #include <utility> // Para usar o std::pair
 
-class Cardapio {
+class Cardapio 
+{
     private:
         std::vector<std::pair<std::string, double>> _itens;
 
