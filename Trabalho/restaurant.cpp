@@ -103,6 +103,7 @@ int main()
 
     std::cout << "\n";
 
+    std::cout << "*** FUNCIONARIOS ***" << std::endl;
     // Instancia objetos de funcionarios e exibe as tarefas
     Recepcionista recepcionista("Ana", 101, 3);
     std::cout << "*** RECEPCIONISTA ***" << std::endl;
@@ -150,74 +151,76 @@ int main()
     
     while(realizado == 0)
     {
-        std::cout << "Digite 1 para pagar com dinheiro. \nDigite 2 para pagar via Pix. \ndigite 3 para pagar com Cartão."<<std::endl;
+        std::cout << "Digite 1 para pagar com dinheiro. \nDigite 2 para pagar via Pix. \ndigite 3 para pagar com cartão."<<std::endl;
+        std::cout << "Digite aqui: ";
         std::cin>>formaPagamento;
+
         switch (formaPagamento)
         {
-        case 1: 
+        case 1:                                                                         // Opcao de pagamento em dinheiro
         {
-            Dinheiro pagamento1(&pedido1, cardapio);
+            Dinheiro pagamento1(&pedido1, cardapio);                                    // Instancia objeto de dinheiro
             pagamento1.pagarDinheiro();
 
-            if(pagamento1.getConfirmacao() == 1)
+            if(pagamento1.getConfirmacao() == 1)                                        // Se pagamento for bem sucedido
             {
                 pagamento1.getPedido()->finalizaPedido();
                 std::cout<<"Pagamento realizado com sucesso!"<<std::endl;
                 realizado = 1;
             }
-            if(pagamento1.getConfirmacao() == 2)
+            if(pagamento1.getConfirmacao() == 2)                                        // Se pagamento for cancelado
             {
                 std::cout<<"Pagamento cancelado!"<<std::endl;
                 realizado = 1;
             }
-            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2)
+            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2)    // Tratamento de erro
             {
-                std::cout<<"Valor invalido inserido, processo de pagamento reiniciado"<<std::endl;
+                std::cout<<"Valor invalido, processo de pagamento reiniciado"<<std::endl;
             }
             break;
         }
-        case 2: 
+        case 2:                                                                         // Opcao de pagamento via Pix
         {
-            Pix pagamento1(&pedido1, cardapio);
+            Pix pagamento1(&pedido1, cardapio);                                         // Instancia objeto com chave/credor de restaurante
             pagamento1.setChave("restaurante@gmail.com");
             pagamento1.setCredor("Restaurante");
             pagamento1.pagarPix();
 
-            if(pagamento1.getConfirmacao() == 1)
+            if(pagamento1.getConfirmacao() == 1)                                        // Se pagamento for bem sucedido
             {
                 pagamento1.getPedido()->finalizaPedido();
                 std::cout<<"Pagamento realizado com sucesso!"<<std::endl;
                 realizado = 1;
             }
-            if(pagamento1.getConfirmacao() == 2)
+            if(pagamento1.getConfirmacao() == 2)                                        // Se pagamento for cancelado
             {
                 std::cout<<"Pagamento cancelado!"<<std::endl;
                 realizado = 1;
             }
-            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2)
+            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2)    // Tratamento de erro
             {
-                std::cout<<"Valor invalido inserido, processo de pagamento reiniciado"<<std::endl;
+                std::cout<<"Valor invalido, processo de pagamento reiniciado"<<std::endl;
             }
             break;
         }
-        case 3: 
+        case 3:                                                                         // Opcao de pagamento via cartao
         {
-            Cartao pagamento1(&pedido1, cardapio);
+            Cartao pagamento1(&pedido1, cardapio);                                      // Instancia objeto de cartao
             pagamento1.pagarCartao();
-            if(pagamento1.getConfirmacao() == 1)
+            if(pagamento1.getConfirmacao() == 1)                                        // Se pagamento for bem sucedido
             {
                 pagamento1.getPedido()->finalizaPedido();
                 std::cout<<"Pagamento realizado com sucesso!"<<std::endl;
                 realizado = 1;
             }
-            if(pagamento1.getConfirmacao() == 2)
+            if(pagamento1.getConfirmacao() == 2)                                        // Se pagamento for cancelado
             {
                 std::cout<<"Pagamento cancelado!"<<std::endl;
                 realizado = 1;
             }
-            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2)
+            if(pagamento1.getConfirmacao() != 1 && pagamento1.getConfirmacao() != 2)    // Tratamento de erro
             {
-                std::cout<<"Valor invalido inserido, processo de pagamento reiniciado"<<std::endl;
+                std::cout<<"Valor invalido, processo de pagamento reiniciado"<<std::endl;
             }
             break;
         }

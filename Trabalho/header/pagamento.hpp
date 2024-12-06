@@ -26,7 +26,7 @@ class Pagamento                         // Superclasse
         double valorDesconto;
         double valorFinal;
         int erro;
-        Pedido* p;  // Ponteiro para Pedido
+        Pedido* p;                     // Ponteiro para Pedido
         Cardapio c;
 
     public:

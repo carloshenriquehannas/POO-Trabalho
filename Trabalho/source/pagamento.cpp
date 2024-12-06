@@ -18,7 +18,7 @@
 // Construtor da classe Pagamento
 Pagamento::Pagamento(Pedido *p_in, Cardapio c_in, float total, int erro) : valorTotal(total), erro(erro), p(p_in), c(c_in) {}
 
-void Pagamento::calcTotal()
+void Pagamento::calcTotal()                             // Calcula o valor total da conta
 {
     auto aux_pedido = p->getPedido();
     auto aux_cardapio = c.getCardapio();
@@ -37,7 +37,7 @@ void Pagamento::calcTotal()
             }
         }
 
-        if (!encontrado)
+        if (!encontrado)                            // Tratamento para itens nao encontrados
         {
             std::cout << "O item " << par_pedido.first << " nao foi encontrado no cardapio." << std::endl;
             erro = 1;
@@ -45,33 +45,33 @@ void Pagamento::calcTotal()
     }
 }
 
-void Pagamento::setDesconto()           // Adiciona desconto ao preco 
+void Pagamento::setDesconto()                           // Adiciona desconto ao preco 
 {
     std::cout << "Insira o desconto a ser aplicado: R$ ";
     std::cin >> valorDesconto;
 }
 
-void Pagamento::semDesconto()           // Pagamento final sem desconto
+void Pagamento::semDesconto()                           // Pagamento final sem desconto
 {
     valorFinal = valorTotal;
 }
 
-void Pagamento::setFinal()              // Pagamento final com desconto
+void Pagamento::setFinal()                              // Pagamento final com desconto
 {
     valorFinal = valorTotal - valorDesconto;
 }
 
-double Pagamento::getFinal() const      // Retorna o valor final 
+double Pagamento::getFinal() const                      // Retorna o valor final 
 {
     return valorFinal;
 }
 
-Pedido *Pagamento::getPedido() const    // Retorna um ponteiro para o pedido
+Pedido *Pagamento::getPedido() const                    // Retorna um ponteiro para o pedido
 {
     return p;
 }
 
-Cardapio Pagamento::getCardapio() const // Retorna a classe do cardapio
+Cardapio Pagamento::getCardapio() const                 // Retorna a classe do cardapio
 {
     return c;
 }
@@ -81,7 +81,7 @@ int Pagamento::getErro() const
     return erro;
 }
 
-float Pagamento::getTotal() const       // Calcula o valor final
+float Pagamento::getTotal() const                       // Calcula o valor final
 {
     return valorTotal;
 }
@@ -89,7 +89,7 @@ float Pagamento::getTotal() const       // Calcula o valor final
 // Construtor da classe Dinheiro
 Dinheiro::Dinheiro(Pedido *p_in, Cardapio c_in, float total, int erro, int conf) : Pagamento(p_in, c_in, total, erro), confirmacao(conf) {}
 
-void Dinheiro::pagarDinheiro()
+void Dinheiro::pagarDinheiro()                          // Metodo interativo para realizar pagamento em dinheiro
 {
     valorRecebido = 0;
     int realizado = 0;
@@ -98,18 +98,19 @@ void Dinheiro::pagarDinheiro()
     std::cout << "Pagamento em dinheiro selecionado." << std::endl;
     std::cout << "Total a ser pago: R$ " << getTotal() << std::endl;
 
-    while (realizado == 0)
+    while (realizado == 0)                              // Enquanto o pagamento nao for realizado
     {
         std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
+        std::cout << "Digite aqui: ";
         std::cin >> confirmacao;
 
-        if (confirmacao == 1)
+        if (confirmacao == 1)                           // Se houver desconto
         {
             setDesconto();
             setFinal();
             std::cout << "Valor final a ser pago: R$ " << getFinal() << std::endl;
         }
-        if (confirmacao == 2)
+        if (confirmacao == 2)                           // Se nao houver desconto
         {
             semDesconto();
             std::cout << "Valor final a ser pago: R$ " << getTotal() << std::endl;
@@ -120,7 +121,7 @@ void Dinheiro::pagarDinheiro()
             std::cout << "Valor invalido!" << std::endl;
     }
 
-    while (valorRecebido < getFinal())
+    while (valorRecebido < getFinal())                 // Processa pagamento do cliente, desde que seja maior ou igual ao valor final
     {
         std::cout << "Insira a quantia paga pelo cliente: R$ ";
         std::cin >> valorRecebido;
@@ -129,12 +130,14 @@ void Dinheiro::pagarDinheiro()
             std::cout << "Valor insuficiente!" << std::endl;
     }
 
+    // Calculo de troco
     troco = valorRecebido - getFinal();
     std::cout << "Troco calculado: R$" << troco << std::endl;
 
     while (realizado == 1)
     {
         std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
+        std::cout << "Digite aqui: ";
         std::cin >> confirmacao;
 
         if (confirmacao == 1 || confirmacao == 2)
@@ -144,17 +147,17 @@ void Dinheiro::pagarDinheiro()
     }
 }
 
-int Dinheiro::getConfirmacao() const
+int Dinheiro::getConfirmacao() const                // Retorna status da confirmacao
 {
     return confirmacao;
 }
 
-double Dinheiro::getTroco() const
+double Dinheiro::getTroco() const                   // Retorna o valor do troco
 {
     return troco;
 }
 
-double Dinheiro::getValor() const
+double Dinheiro::getValor() const                   // Retorna o valor recebido pelo cliente
 {
     return valorRecebido;
 }
@@ -162,25 +165,26 @@ double Dinheiro::getValor() const
 // Construtor da classe Pix
 Pix::Pix(Pedido *p_in, Cardapio c_in, float total, int erro) : Pagamento(p_in, c_in, total, erro) {}
 
-void Pix::pagarPix()
+void Pix::pagarPix()                                // Metodo interativo para realizar pagamento via Pix
 {
     int realizado = 0;
     calcTotal();
 
     std::cout << "Pagamento via Pix selecionado." << std::endl;
 
-    while (realizado == 0)
+    while (realizado == 0)                          // Enquanto o pagamento nao for realizado
     {
         std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
+        std::cout << "Digite aqui: ";
         std::cin >> confirmacao;
 
-        if (confirmacao == 1)
+        if (confirmacao == 1)                       // Se houver desconto
         {
             setDesconto();
             setFinal();
             std::cout << "Valor final a ser pago: R$ " << getFinal() << std::endl;
         }
-        if (confirmacao == 2)
+        if (confirmacao == 2)                       // Se nao houver desconto
         {
             semDesconto();
             std::cout << "Valor final a ser pago: R$ " << getFinal() << std::endl;
@@ -195,11 +199,12 @@ void Pix::pagarPix()
 
     std::cout << "Devedor: " << devedor << std::endl;
     std::cout << "Credor: " << credor << std::endl;
-    std::cout << "Chave pix: " << chave << std::endl;
+    std::cout << "Chave Pix: " << chave << std::endl;
 
     while (realizado == 1)
     {
         std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
+        std::cout << "Digite aqui: ";
         std::cin >> confirmacao;
 
         if (confirmacao == 1 || confirmacao == 2)
@@ -209,17 +214,17 @@ void Pix::pagarPix()
     }
 }
 
-int Pix::getConfirmacao() const
+int Pix::getConfirmacao() const                     // Retorna status da confirmacao
 {
     return confirmacao;
 }
 
-void Pix::setCredor(const std::string &cred)
+void Pix::setCredor(const std::string &cred)        // Retorna o credor do Pix
 {
     credor = cred;
 }
 
-void Pix::setChave(const std::string &ch)
+void Pix::setChave(const std::string &ch)           // Retorna a chave Pix do credor
 {
     chave = ch;
 }
@@ -227,7 +232,7 @@ void Pix::setChave(const std::string &ch)
 // Construtor da classe Cartao
 Cartao::Cartao(Pedido *p_in, Cardapio c_in, float total, int erro) : Pagamento(p_in, c_in, total, erro) {}
 
-void Cartao::pagarCartao()
+void Cartao::pagarCartao()                          // Metodo interativo para realizar pagamento com cartao
 {
     calcTotal();
     int realizado = 0;
@@ -235,18 +240,19 @@ void Cartao::pagarCartao()
     std::cout << "Pagamento via cartao selecionado." << std::endl;
     std::cout << "Total a ser pago: R$ " << getTotal() << std::endl;
 
-    while (realizado == 0)
+    while (realizado == 0)                          // Enquanto o pagamento nao for realizado
     {
         std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
+        std:: cout << "Digite aqui: ";
         std::cin >> confirmacao;
 
-        if (confirmacao == 1)
+        if (confirmacao == 1)                       // Se houver desconto
         {
             setDesconto();
             setFinal();
             std::cout << "Valor final a ser pago: R$ " << getFinal() << std::endl;
         }
-        if (confirmacao == 2)
+        if (confirmacao == 2)                       // Se nao houver desconto
         {
             semDesconto();
             std::cout << "Valor final a ser pago: R$ " << getFinal() << std::endl;
@@ -258,14 +264,14 @@ void Cartao::pagarCartao()
             std::cout << "Valor invalido!" << std::endl;
     }
 
+    std::cout << "Digite o nome do banco: ";
+    std::getline(std::cin >> std::ws, banco);
     while (realizado == 1)
     {
-        std::cout << "Digite o nome do banco: ";
-        std::getline(std::cin >> std::ws, banco);
-
         std::cout << "\n";
 
-        std::cout << "Digite 1 para credito ou 2 para debito: ";
+        std::cout << "Digite 1 para pagamento no credito.\nDigite 2 para pagamento no debito." << std::endl;
+        std::cout << "Digite aqui: ";
         std::cin >> tipoPagamento;
 
         if (tipoPagamento == 1 || tipoPagamento == 2)
@@ -273,15 +279,16 @@ void Cartao::pagarCartao()
         else
             std::cout << "Valor invalido!" << std::endl;
     }
-    if (tipoPagamento == 1)
-        std::cout << "Credito selecionado.\n" << "Pagamento pelo banco: " << banco << std::endl;
+    if (tipoPagamento == 1)                         // Seleciona a opcao de pagamento no credito
+        std::cout << "Credito selecionado.\n" << "Banco: " << banco << std::endl;
 
-    if (tipoPagamento == 2)
-        std::cout << "Debito selecionado.\n" << "Pagamento pelo banco: " << banco << std::endl;
+    if (tipoPagamento == 2)                         // Seleciona a opcao de pagamento no debito
+        std::cout << "Debito selecionado.\n" << "Banco: " << banco << std::endl;
 
     while (realizado == 2)
     {
         std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
+        std::cout << "Digite aqui: ";
         std::cin >> confirmacao;
         
         if (confirmacao == 1 || confirmacao == 2)
@@ -293,12 +300,12 @@ void Cartao::pagarCartao()
     }
 }
 
-int Cartao::getConfirmacao() const
+int Cartao::getConfirmacao() const                  // Retorna status da confirmacao
 {
     return confirmacao;
 }
 
-int Cartao::getTipo() const
+int Cartao::getTipo() const                         // Retorna a opcao do tipo de pagamento
 {
     return tipoPagamento;
 }
