@@ -28,7 +28,7 @@ O repositório é organizado da seguinte forma: restaurant.cpp (arquivo principa
 Nesta prática, os comandos para compilar e executar o código ocorrem via terminal:
 
     Digite "make" no terminal para compilar o código
-    Digite "make run" no terminal para executar: o código
+    Digite "make run" no terminal para executar o código
 
 As informações de projeto e código, como a documentação, encontram-se no arquivo SCC0604-Trabalho01.pdf. Além disso utilizou-se, nesta prática:
 
