@@ -4,7 +4,7 @@ Repositório para atividades e trabalho da disciplina de graduação de Programa
 ## Trabalho
 O repositório é organizado da seguinte forma: restaurant.cpp (arquivo principal da simulação), pasta header (armazena arquivos de extensão .hpp que implementam as classes), pasta source (armazena arquivos de extensão .cpp que implementam os métodos públicos da classe) e um Makefile. Abaixo a descrição de cada um desses itens:
 
-1. restaurant.cpp: arquivo principal da simulacao
+1. restaurant.cpp: arquivo principal da simulação
 2. Pasta header
     1. cardapio.hpp: classe de cardápio
     2. cliente.hpp: classe de cliente
