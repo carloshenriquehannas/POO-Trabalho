@@ -24,7 +24,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include <locale.h>
+#include <limits>
 
 // Funcao auxiliar para exibir data e hora em formato tradicional: dia/mes/ano hora:minuto
 void displayDataHora(const std::tm& dataHora) 
@@ -34,8 +34,6 @@ void displayDataHora(const std::tm& dataHora)
 
 int main()
 {
-    setlocale(LC_ALL,"Portuguese_Brazil");
-
     //Instancia o objeto cliente1 e exibe informacoes
     Cliente cliente1("Maria", "12345", "Rua 1");
     std::cout << "***** CLIENTE 1 *****" << std::endl;
@@ -151,9 +149,18 @@ int main()
     
     while(realizado == 0)
     {
-        std::cout << "Digite 1 para pagar com dinheiro. \nDigite 2 para pagar via Pix. \ndigite 3 para pagar com cartão."<<std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin>>formaPagamento;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para pagar com dinheiro. \nDigite 2 para pagar via Pix. \ndigite 3 para pagar com cartao."<<std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin>>formaPagamento;
+        } while (std::cin.fail());
 
         switch (formaPagamento)
         {

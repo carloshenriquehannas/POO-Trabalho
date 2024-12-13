@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <limits>
 
 // Construtor da classe Pagamento
 Pagamento::Pagamento(Pedido *p_in, Cardapio c_in, float total, int erro) : valorTotal(total), erro(erro), p(p_in), c(c_in) {}
@@ -47,8 +48,23 @@ void Pagamento::calcTotal()                             // Calcula o valor total
 
 void Pagamento::setDesconto()                           // Adiciona desconto ao preco 
 {
-    std::cout << "Insira o desconto a ser aplicado: R$ ";
-    std::cin >> valorDesconto;
+    do
+    {
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "\nInsira o desconto a ser aplicado: R$ ";
+            std::cin >> valorDesconto;
+        } while (std::cin.fail());
+
+        if (valorDesconto > getTotal())
+            std::cout << "\nDesconto inserido invalido!\nValor maior que o total do pedido!" << std::endl;
+    } while (valorDesconto > getTotal());
 }
 
 void Pagamento::semDesconto()                           // Pagamento final sem desconto
@@ -100,9 +116,18 @@ void Dinheiro::pagarDinheiro()                          // Metodo interativo par
 
     while (realizado == 0)                              // Enquanto o pagamento nao for realizado
     {
-        std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin >> confirmacao;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin >> confirmacao;
+        } while (std::cin.fail());
 
         if (confirmacao == 1)                           // Se houver desconto
         {
@@ -123,8 +148,17 @@ void Dinheiro::pagarDinheiro()                          // Metodo interativo par
 
     while (valorRecebido < getFinal())                 // Processa pagamento do cliente, desde que seja maior ou igual ao valor final
     {
-        std::cout << "Insira a quantia paga pelo cliente: R$ ";
-        std::cin >> valorRecebido;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Insira a quantia paga pelo cliente: R$ ";
+            std::cin >> valorRecebido;
+        } while (std::cin.fail());
 
         if (valorRecebido < getFinal())
             std::cout << "Valor insuficiente!" << std::endl;
@@ -136,9 +170,18 @@ void Dinheiro::pagarDinheiro()                          // Metodo interativo par
 
     while (realizado == 1)
     {
-        std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin >> confirmacao;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin >> confirmacao;
+        } while (std::cin.fail());
 
         if (confirmacao == 1 || confirmacao == 2)
             realizado = 2;
@@ -171,12 +214,22 @@ void Pix::pagarPix()                                // Metodo interativo para re
     calcTotal();
 
     std::cout << "Pagamento via Pix selecionado." << std::endl;
+    std::cout << "Total a ser pago: R$ " << getTotal() << std::endl;
 
     while (realizado == 0)                          // Enquanto o pagamento nao for realizado
     {
-        std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin >> confirmacao;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin >> confirmacao;
+        } while (std::cin.fail());
 
         if (confirmacao == 1)                       // Se houver desconto
         {
@@ -203,9 +256,18 @@ void Pix::pagarPix()                                // Metodo interativo para re
 
     while (realizado == 1)
     {
-        std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin >> confirmacao;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin >> confirmacao;
+        } while (std::cin.fail());
 
         if (confirmacao == 1 || confirmacao == 2)
             realizado = 2;
@@ -242,9 +304,18 @@ void Cartao::pagarCartao()                          // Metodo interativo para re
 
     while (realizado == 0)                          // Enquanto o pagamento nao for realizado
     {
-        std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
-        std:: cout << "Digite aqui: ";
-        std::cin >> confirmacao;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para aplicar desconto.\n" << "Digite 2 para continuar sem desconto." << std::endl;
+            std:: cout << "Digite aqui: ";
+            std::cin >> confirmacao;
+        } while (std::cin.fail());
 
         if (confirmacao == 1)                       // Se houver desconto
         {
@@ -264,15 +335,34 @@ void Cartao::pagarCartao()                          // Metodo interativo para re
             std::cout << "Valor invalido!" << std::endl;
     }
 
-    std::cout << "Digite o nome do banco: ";
-    std::getline(std::cin >> std::ws, banco);
+    do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite o nome do banco: ";
+            std::getline(std::cin >> std::ws, banco);
+        } while (std::cin.fail());
+    
     while (realizado == 1)
-    {
-        std::cout << "\n";
+    {  
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "\n";
 
-        std::cout << "Digite 1 para pagamento no credito.\nDigite 2 para pagamento no debito." << std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin >> tipoPagamento;
+            std::cout << "Digite 1 para pagamento no credito.\nDigite 2 para pagamento no debito." << std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin >> tipoPagamento;
+        } while (std::cin.fail());
 
         if (tipoPagamento == 1 || tipoPagamento == 2)
             realizado = 2;
@@ -287,9 +377,18 @@ void Cartao::pagarCartao()                          // Metodo interativo para re
 
     while (realizado == 2)
     {
-        std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
-        std::cout << "Digite aqui: ";
-        std::cin >> confirmacao;
+        do
+        {
+            if (std::cin.fail()) 
+            {
+                std::cin.clear(); // Limpa o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descarta o restante da entrada inválida
+                std::cout << "\nEntrada invalida. Insira um numero.\n" << std::endl;
+            }
+            std::cout << "Digite 1 para confirmar pagamento.\n" << "Digite 2 para cancelar proceso de pagamento." << std::endl;
+            std::cout << "Digite aqui: ";
+            std::cin >> confirmacao;
+        } while (std::cin.fail());
         
         if (confirmacao == 1 || confirmacao == 2)
         {
