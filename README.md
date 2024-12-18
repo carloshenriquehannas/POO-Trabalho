@@ -34,3 +34,15 @@ As informações de projeto e código, como a documentação, encontram-se no ar
 
     Compilador: gcc (GCC) 13.2.0
     Sistema Operacional (LINUX): Ubuntu 24.04.1 LTS.
+    
+## Listas
+O repositório é organizado de forma a guardar as listas de exercícios que compunham para a avaliação da disciplina. Abaixo segue uma breve descrição:
+
+1. Lista01: lista 1 de exercícios da disciplina, abrangendo conceitos introdutórios da linguagem C++;
+    1. lista01: lista prática de exercícios;
+    2. lista01e: lista extra de exercícios;
+2. Lista02-03: listas 2 e 3 de exercícios da disciplina, abrangendo conceitos de programação orientada a objetos em C++;
+    1. lista02-03: lista prática de exercícios;
+    2. lista02e-03e: lista extra de exercícios;
+3. Lista04: lista 4 de exercícios da disciplina, abrangendo conceitos de STL, Algorithm e outros;
+    1. lista03: lista prática de exercícios.
