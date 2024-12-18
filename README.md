@@ -45,4 +45,4 @@ O repositório é organizado de forma a guardar as listas de exercícios que com
     1. lista02-03: lista prática de exercícios;
     2. lista02e-03e: lista extra de exercícios;
 3. Lista04: lista 4 de exercícios da disciplina, abrangendo conceitos de STL, Algorithm e outros;
-    1. lista03: lista prática de exercícios.
+    1. lista04: lista prática de exercícios.
